@@ -62,3 +62,33 @@ The main CLI command function that orchestrates the repository analysis. It init
     ```sh
     python code_monitor/main.py --path /path/to/your/repo --staged-only
     ```
+
+<!-- DOC_ID: code_monitor/main.py----get_functions_and_classes -->
+python
+sample_code = """
+import os
+
+class DataProcessor:
+    \"\"\"A simple class to process data.\"\"\"
+    def __init__(self, data):
+        self.data = data
+
+    def process(self):
+        return len(self.data)
+
+def helper_function():
+    print("This is a helper.")
+"""
+
+parsed_objects = parse_code(sample_code)
+print(parsed_objects)
+
+# Expected output:
+# {
+#     'DataProcessor': {'type': 'Class', 'name': 'DataProcessor', 'start_line': 3, 'end_line': 8},
+#     '__init__': {'type': 'Function', 'name': '__init__', 'start_line': 5, 'end_line': 6},
+#     'process': {'type': 'Function', 'name': 'process', 'start_line': 8, 'end_line': 9},
+#     'helper_function': {'type': 'Function', 'name': 'helper_function', 'start_line': 11, 'end_line': 12}
+# }
+<!-- END_DOC_ID: code_monitor/main.py----get_functions_and_classes -->
+
